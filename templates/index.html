@@ -1,0 +1,77 @@
+{% extends 'main.html' %}
+{% block title %}Eden - Code{% endblock title %}
+{% block content %}
+
+       <!-- min-height: calc({{ num_lines }}em * 1.5 + 2 * 1em) !important;
+      min-width: calc({{ max_chars }}ch + 4 * 2em) !important;  -->
+<style>
+    .code {
+     
+        min-height: 100px; /* Set a minimum height */
+        resize: none; /* Disable default resize behavior */
+        border: 1px solid #ccc;
+        padding: 10px;
+  
+        overflow: hidden; /* Hide overflowing content */
+    }
+    .code:focus {
+      box-shadow:none;
+      border: 1px solid #222;
+    }
+  </style>
+  <div class="container-fluid px-3 py-2">
+    <h2 class="text-center">Input Your Code Here</h2>
+        <form  method="post">
+            {{ form.hidden_tag() }}
+            <div class="mb-3 px-5 py-3">
+               
+                  {{ form.code(class='form-control code',oninput="resizeTextarea(this)")  }}
+
+                
+               
+            </div>
+            <div class="controls">
+              <div class="text-center"> 
+              
+                <button type="submit" class="btn btn-outline-dark my-3 px-5"> 
+                Next <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                </svg>
+                </button>
+              </div>
+              <div class="text-center">
+
+                <button formmethod="post" class="w-75 btn btn-link" formaction="{{ url_for('style.reset_session') }}">
+                  Reset Session <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-recycle" viewBox="0 0 16 16">
+                    <path d="M9.302 1.256a1.5 1.5 0 0 0-2.604 0l-1.704 2.98a.5.5 0 0 0 .869.497l1.703-2.981a.5.5 0 0 1 .868 0l2.54 4.444-1.256-.337a.5.5 0 1 0-.26.966l2.415.647a.5.5 0 0 0 .613-.353l.647-2.415a.5.5 0 1 0-.966-.259l-.333 1.242-2.532-4.431zM2.973 7.773l-1.255.337a.5.5 0 1 1-.26-.966l2.416-.647a.5.5 0 0 1 .612.353l.647 2.415a.5.5 0 0 1-.966.259l-.333-1.242-2.545 4.454a.5.5 0 0 0 .434.748H5a.5.5 0 0 1 0 1H1.723A1.5 1.5 0 0 1 .421 12.24l2.552-4.467zm10.89 1.463a.5.5 0 1 0-.868.496l1.716 3.004a.5.5 0 0 1-.434.748h-5.57l.647-.646a.5.5 0 1 0-.708-.707l-1.5 1.5a.498.498 0 0 0 0 .707l1.5 1.5a.5.5 0 1 0 .708-.707l-.647-.647h5.57a1.5 1.5 0 0 0 1.302-2.244l-1.716-3.004z"/>
+                  </svg>
+                </button>
+              </div>
+               
+                <!-- <button formmethod="post" formaction="{{ url_for('style.save_code') }}">
+                  Save Code 💾
+                </button> -->
+                
+                
+              </div>
+          
+        </form>
+    
+    </div>
+  </div>
+    <script>
+      function resizeTextarea(textarea) {
+          textarea.style.height = 'auto'; // Reset the height to auto
+          textarea.style.height = textarea.scrollHeight + 'px'; // Set the height to fit the content
+      }
+      
+      document.addEventListener('DOMContentLoaded', () => {
+        console.log('yess');
+        const textarea = document.querySelector('textarea');
+        textarea.style.height = 'auto';
+        textarea.style.height = textarea.scrollHeight + 'px';
+    });
+    
+  </script>
+{% endblock content %}
+    

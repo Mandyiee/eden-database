@@ -1,0 +1,35 @@
+{% extends "main.html" %}
+
+{% block title %}
+Eden - Copy Code
+{% endblock title %}
+
+{% block content %}
+<div>
+    <div class="mx-auto p-5" style="height: 90vh;">
+        <div class="w-100 h-100">
+            <img src="{{ url_for('display_image', id=image.id) }}" class="w-100 h-100" style="object-fit: cover;border-radius:4px;" alt="Code Image">
+        </div>
+    </div>
+</div>
+
+<div class="px-5 py-3" style="position: absolute;top:50%;left:50%;transform: translate(-50%, -50%);border-radius:3px;border:1px solid black;background-color:rgba(0,0,0,0.4)">
+    <button type="button" class="btn btn-outline-light" onclick="copyToClipboard()" >Copy Code To Clipboard <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+        <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+        <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+      </svg></button>
+</div>
+<script>
+    function copyToClipboard() {
+        const text = `{{ image.code| safe }}`;
+        const tempInput = document.createElement("input");
+        tempInput.style.position = "absolute";
+        tempInput.style.left = "-9999px";
+        tempInput.value = text;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand("copy");
+        document.body.removeChild(tempInput);
+      }
+</script>
+{% endblock %}

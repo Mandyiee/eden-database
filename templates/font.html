@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Change Font</title>
+</head>
+<body>
+    <label for="fontSelect">Select a Font:</label>
+    <select id="fontSelect" onchange="changeFont()">
+        <option value="default">Default Font</option>
+    </select>
+    <p id="changeableText">This text will change font.</p>
+</body>
+<script>
+    function populateFonts() {
+        const fontSelect = document.getElementById("fontSelect");
+        const changeableText = document.getElementById("changeableText");
+
+        // Get all available fonts
+        const allFonts = document.fonts;
+
+        // Create an array of font names
+        const fontNames = [];
+        allFonts.forEach(font => {
+            fontNames.push(font.family);
+        });
+
+        // Remove duplicates and sort the list
+        const uniqueFontNames = [...new Set(fontNames)];
+        uniqueFontNames.sort();
+
+        // Populate the select dropdown with font options
+        uniqueFontNames.forEach(fontName => {
+            const option = document.createElement("option");
+            option.text = fontName;
+            option.value = fontName;
+            fontSelect.appendChild(option);
+        });
+
+        // Set initial font for the changeable text
+        changeableText.style.fontFamily = uniqueFontNames[0];
+    }
+
+    function changeFont() {
+        const fontSelect = document.getElementById("fontSelect");
+        const selectedFont = fontSelect.value;
+        const changeableText = document.getElementById("changeableText");
+        changeableText.style.fontFamily = selectedFont;
+    }
+
+    // Initial call to populateFonts() to fetch and populate the font list
+    populateFonts();
+</script>
+</html>
